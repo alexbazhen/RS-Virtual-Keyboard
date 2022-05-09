@@ -1,7 +1,28 @@
 import kb from './kb';
 import './style.scss';
 import Lang from './langSettings';
+import FuncKeys from './functionalKeys';
 
+let keyboard;
+let keys = [];
+let isCaps = false;
+function toggleCaps() {
+   if (isCaps) {
+      isCaps = false;
+      keys[29].classList.remove('active');
+   } else {
+      isCaps = true;
+      keys[29].classList.add('active');
+   }
+}
+let isAlt = false;
+let isCtrl = false;
+let isShift = false;
+function manyKey() {
+   if (isAlt && isCtrl) {
+      Lang.change();
+   }
+}
 function generationKeyboard() { // Generation Keyboard
    if (document.body) {
       // Create Wrapper
@@ -20,14 +41,14 @@ function generationKeyboard() { // Generation Keyboard
       wrapper.append(area);
 
       // Create Keyboard Div
-      const keyboard = document.createElement('div');
+      keyboard = document.createElement('div');
       keyboard.className = 'keyboard';
       wrapper.append(keyboard);
       for (let i = 0; i < 64; i++) {
          const newKey = document.createElement('button');
          newKey.className = `btn ${kb[i].codeName}`;
-         const spanRu = document.createElement('span');
-         const spanEn = document.createElement('span');
+         const spanRu = document.createElement('p');
+         const spanEn = document.createElement('p');
          spanRu.className = 'ru';
          spanEn.className = 'en';
          spanRu.innerHTML = `
@@ -44,11 +65,89 @@ function generationKeyboard() { // Generation Keyboard
          newKey.append(spanEn);
          keyboard.append(newKey);
       }
+      keys = keyboard.querySelectorAll('button');
 
       // Create Attention
       const attention = document.createElement('p');
-      attention.innerHTML = 'Создано в ОС Windows <br>Для переключения языка ввода, используйте комбинацию: Alt + Ctrl';
+      attention.innerHTML = 'Создано в ОС Windows <br>Для переключения языка ввода, используйте комбинацию: левые Alt + Ctrl';
       wrapper.append(attention);
    }
 }
 generationKeyboard();
+
+function checkCode(symb, down) {
+   switch (symb) {
+      case 'CapsLock':
+         if (!down) {
+            toggleCaps();
+            FuncKeys.caps(keys, isCaps, isShift);
+         }
+         break;
+      case 'ShiftLeft':
+         if (!down) {
+            isShift = true;
+            FuncKeys.shift(keys, isShift, isCaps);
+         } else {
+            isShift = false;
+            FuncKeys.shift(keys, isShift, isCaps);
+         }
+         break;
+      case 'ShiftRight':
+         if (!down) {
+            isShift = true;
+            FuncKeys.shift(keys, isShift);
+         } else {
+            isShift = false;
+            FuncKeys.shift(keys, isShift);
+         }
+         break;
+      case 'ControlLeft':
+         if (!down) {
+            isCtrl = true;
+            manyKey();
+         } else {
+            isCtrl = false;
+         }
+         break;
+      case 'AltLeft':
+         if (!down) {
+            isAlt = true;
+            manyKey();
+         } else {
+            isAlt = false;
+         }
+         break;
+      default:
+         break;
+   }
+}
+window.addEventListener('keydown', (e) => {
+   e.preventDefault();
+   keys.forEach((key) => {
+      if (key.classList.contains(e.code)) {
+         key.classList.add('hover');
+         checkCode(e.code);
+      }
+   });
+});
+window.addEventListener('keyup', (e) => {
+   e.preventDefault();
+   keys.forEach((key) => {
+      if (key.classList.contains(e.code)) {
+         key.classList.remove('hover');
+         checkCode(e.code, true);
+      }
+   });
+});
+keyboard.addEventListener('mousedown', (e) => {
+   if (e.target.classList.contains('btn')) {
+      e.target.classList.add('hover');
+      checkCode(e.target.classList.item(1));
+   }
+});
+keyboard.addEventListener('mouseup', (e) => {
+   if (e.target.classList.contains('btn')) {
+      e.target.classList.remove('hover');
+      checkCode(e.target.classList.item(1), true);
+   }
+});

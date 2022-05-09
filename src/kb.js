@@ -795,7 +795,7 @@ const kb = [
       },
    },
    {
-      codeName: 'ArrowcaseUp',
+      codeName: 'ArrowUp',
       ru: {
          caseDown: '↑',
          caseUp: '↑',

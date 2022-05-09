@@ -32,11 +32,20 @@
    justify-content: center;
    align-items: center;
    position: relative;
-   &>span {
+   transition: all .3s;
+   &>p {
       position: absolute;
+      pointer-events: none;
+      color: #FFF;
       //top: 50%;
       //left: 50%;
       //transform: translate3d(-50%, -50%, 0);
+   }
+   &.hover {
+      background: #000;
+   }
+   &.active {
+      background: green;
    }
 }
 .Backspace, .Enter, .ShiftRight {
