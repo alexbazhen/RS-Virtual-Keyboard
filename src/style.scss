@@ -12,7 +12,12 @@
    flex-direction: column;
    align-items: center;
 }
+.textarea {
+   width: 680px;
+   height: 200px;
+}
 .keyboard {
+   margin-top: 30px;
    display: grid;
    grid-template-columns: repeat(15, 40px);
    grid-template-rows: repeat(5, 40px);

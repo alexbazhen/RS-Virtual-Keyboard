@@ -1,5 +1,6 @@
 import kb from './kb';
 import './style.scss';
+import Lang from './langSettings';
 
 function generationKeyboard() { // Generation Keyboard
    if (document.body) {
@@ -30,12 +31,12 @@ function generationKeyboard() { // Generation Keyboard
          spanRu.className = 'ru';
          spanEn.className = 'en';
          spanRu.innerHTML = `
-         <span class="caseDown">${kb[i].ru.caseDown}</span>
+         <span class="caseDown ${Lang.build('ru')}">${kb[i].ru.caseDown}</span>
          <span class="caseUp hidden">${kb[i].ru.caseUp}</span>
          <span class="caps hidden">${kb[i].ru.caps}</span>
          <span class="shiftCaps hidden">${kb[i].ru.shiftCaps}</span>`;
          spanEn.innerHTML = `
-         <span class="caseDown hidden">${kb[i].en.caseDown}</span>
+         <span class="caseDown ${Lang.build('en')}">${kb[i].en.caseDown}</span>
          <span class="caseUp hidden">${kb[i].en.caseUp}</span>
          <span class="caps hidden">${kb[i].en.caps}</span>
          <span class="shiftCaps hidden">${kb[i].en.shiftCaps}</span>`;
