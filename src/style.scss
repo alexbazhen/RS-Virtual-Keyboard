@@ -1,0 +1,148 @@
+@import '~normalize.css';
+$bgColor: #636263;
+$wrapperColor: #3b3e47;
+$bgBtn: #242829;
+$addBgBtn: #242829;
+$color: #F4EBDB;
+$activeColor: #F4EBDB;
+$hoverColor: #7ab4f7;
+$activeBtnBg: #8E9B97;
+$hoverBtnBg: #292b2b;
+
+* {
+   font-family: "Trebuchet MS", "Helvetica", sans-serif;
+}
+body {
+   background: $bgColor;
+}
+h1 {
+   color: $color;
+}
+
+.hidden {
+   opacity: 0;
+   visibility: hidden;
+   display: none;
+}
+.wrapper {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+.textarea {
+   width: 680px;
+   height: 200px;
+}
+.keyboard {
+   margin-top: 30px;
+   display: grid;
+   grid-template-columns: repeat(15, 40px);
+   grid-template-rows: repeat(5, 40px);
+   gap: 6px;
+   padding: 12px;
+   border-radius: 6px;
+   background: $wrapperColor;
+   &~p {
+      color: $color;
+      text-align: center;
+      font-size: 1rem;
+   }
+}
+.btn {
+   background: $bgBtn;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   position: relative;
+   transition: all .3s;
+   box-shadow: 0px 0px 6px 4px rgba(205, 220, 36, 0.0);
+   &:focus {
+      border: none;
+   }
+   &>p {
+      position: absolute;
+      pointer-events: none;
+      color: $color;
+      transition: all .3s;
+      //top: 50%;
+      //left: 50%;
+      //transform: translate3d(-50%, -50%, 0);
+   }
+   &.hover {
+      background: $hoverBtnBg;      
+      box-shadow: 0px 0px 6px 4px rgba(36, 54, 220, 0.48);
+      &>p {
+         color: $hoverColor;
+      }
+   }
+   &.active {
+      background: $bgBtn;
+      box-shadow: 0px 0px 6px 4px rgba(221, 12, 12, 0.48);
+      &>p {
+         color: #e7594f;
+      }
+   }
+}
+.Backspace, .Enter, .ShiftRight {
+   grid-column: 14 / 16;
+   background: $addBgBtn;
+}
+.ShiftLeft, .CapsLock {
+   grid-column: 1 / 3;
+   background: $addBgBtn;
+}
+.Space {
+   grid-column: 4 / 11;
+   background: $addBgBtn;
+}
+.Tab, .ControlLeft, .ControlRight, .AltLeft, .AltRight, .MetaLeft, .Delete {
+   background: $addBgBtn;
+}
+.Enter, .Space {
+   &.hover {
+      box-shadow: 0px 0px 6px 4px rgba(36, 220, 45, 0.48);
+      &>p {
+         color: #34cf2e;
+      }
+   }
+}
+.Tab, .MetaLeft, .ArrowUp, .ArrowLeft, .ArrowRight, .ArrowDown {
+   &.hover {
+      box-shadow: 0px 0px 6px 4px rgba(220, 36, 180, 0.48);
+      &>p {
+         color: #ec8adc;
+      }
+   }
+}
+.ShiftLeft, .ShiftRight, .AltLeft, .AltRight, .ControlLeft, .ControlRight {
+   &.hover {
+      box-shadow: 0px 0px 6px 4px rgba(220, 202, 36, 0.48);
+      &>p {
+         color: #ece28a;
+      }
+   }
+}
+.Backspace, .Delete {
+   &.hover {
+      box-shadow: 0px 0px 6px 4px rgba(221, 12, 12, 0.48);
+      &>p {
+         color: #e7594f;
+      }
+   }
+}
+.textarea {
+   padding: 12px;   
+   border: none;
+   border-radius: 12px;
+   background: #1a1b1b;
+   color: #ddd2bf;
+   transition: all .3s;
+   //box-shadow: 0px 0px 6px 4px rgba(36, 220, 45, 0.48);
+   &:focus {
+      outline: none;
+      box-shadow: 0px 0px 6px 4px rgba(220, 202, 36, 0.48);
+   }
+}
