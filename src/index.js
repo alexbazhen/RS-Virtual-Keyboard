@@ -212,6 +212,7 @@ window.addEventListener('keyup', (e) => {
    });
 });
 keyboard.addEventListener('mousedown', (e) => {
+   e.preventDefault();
    if (e.target.classList.contains('btn')) {
       e.target.classList.add('hover');
       checkCode(e.target.classList.item(1));
@@ -219,6 +220,7 @@ keyboard.addEventListener('mousedown', (e) => {
    }
 });
 keyboard.addEventListener('mouseup', (e) => {
+   e.preventDefault();
    if (e.target.classList.contains('btn')) {
       e.target.classList.remove('hover');
       checkCode(e.target.classList.item(1), true);
