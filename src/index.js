@@ -2,6 +2,7 @@ import kb from './kb';
 import './style.scss';
 import Lang from './langSettings';
 import FuncKeys from './functionalKeys';
+import TextArea from './textarea';
 
 let keyboard;
 let keys = [];
@@ -121,12 +122,83 @@ function checkCode(symb, down) {
          break;
    }
 }
+function inTextArea(keyb, key) {
+   let symb = false;
+   let ent;
+   if (keyb) {
+      symb = key.code;
+      keys.forEach((actKey) => {
+         if (actKey.classList.contains(key.code)) {
+            const allSpans = actKey.querySelectorAll('span');
+            allSpans.forEach((el) => {
+               if (!el.classList.contains('hidden')) {
+                  ent = el.innerText;
+               }
+            });
+         }
+      });
+   } else {
+      symb = key.target.classList.item(1);
+      const allSpans = key.target.querySelectorAll('span');
+      allSpans.forEach((el) => {
+         if (!el.classList.contains('hidden')) {
+            ent = el.innerText;
+         }
+      });
+   }
+   switch (symb) {
+      case 'CapsLock':
+         break;
+      case 'ShiftLeft':
+         break;
+      case 'ShiftRight':
+         break;
+      case 'ControlLeft':
+         break;
+      case 'ControlRight':
+         break;
+      case 'AltLeft':
+         break;
+      case 'MetaLeft':
+         break;
+      case 'AltRight':
+         break;
+      case 'Backspace':
+         TextArea.back();
+         break;
+      case 'Delete':
+         TextArea.delete();
+         break;
+      case 'Tab':
+         TextArea.add('   ');
+         break;
+      case 'Enter':
+         TextArea.add('\n');
+         break;
+      case 'ArrowUp':
+         TextArea.add('▲');
+         break;
+      case 'ArrowDown':
+         TextArea.add('▼');
+         break;
+      case 'ArrowLeft':
+         TextArea.add('◄');
+         break;
+      case 'ArrowRight':
+         TextArea.add('►');
+         break;
+      default:
+         TextArea.add(ent);
+         break;
+   }
+}
 window.addEventListener('keydown', (e) => {
    e.preventDefault();
    keys.forEach((key) => {
       if (key.classList.contains(e.code)) {
          key.classList.add('hover');
          checkCode(e.code);
+         inTextArea(true, e);
       }
    });
 });
@@ -143,6 +215,7 @@ keyboard.addEventListener('mousedown', (e) => {
    if (e.target.classList.contains('btn')) {
       e.target.classList.add('hover');
       checkCode(e.target.classList.item(1));
+      inTextArea(false, e);
    }
 });
 keyboard.addEventListener('mouseup', (e) => {

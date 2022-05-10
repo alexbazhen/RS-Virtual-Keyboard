@@ -33,6 +33,9 @@
    align-items: center;
    position: relative;
    transition: all .3s;
+   &:focus {
+      border: none;
+   }
    &>p {
       position: absolute;
       pointer-events: none;
@@ -58,5 +61,8 @@
 }
 .Space {
    grid-column: 4 / 11;
+   background: grey;
+}
+.Tab, .ControlLeft, .ControlRight, .AltLeft, .AltRight, .MetaLeft, .Delete {
    background: grey;
 }
